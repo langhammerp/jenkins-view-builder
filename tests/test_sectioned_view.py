@@ -11,6 +11,7 @@ VIEW_LISTING_LOCATOR = 'sections/hudson.plugins.sectioned__view.ViewListingSecti
 JOB_STATUS_FILTER_LOCATOR = 'hudson.views.JobStatusFilter'
 JOB_REGEX_FILTER_LOCATOR = 'hudson.views.RegExJobFilter'
 OTHER_VIEWS_FILTER_LOCATOR = 'hudson.views.OtherViewsFilter'
+MOST_RECENT_JOBS_FILTER_LOCATOR = 'hudson.views.MostRecentJobsFilter'
 
 
 class TestSectionedView(TestCase):
@@ -116,3 +117,11 @@ class TestSectionedView(TestCase):
         filter = section.find('jobFilters/%s' % OTHER_VIEWS_FILTER_LOCATOR)
         self.assertEqual(filter.find('otherViewName').text, 'OTHER_VIEW_NAME')
         self.assertEqual(filter.find('includeExcludeTypeString').text, 'excludeMatched')
+
+    def test_should_have_most_recent_jobs_filter_in_list_view_section_xml(self):
+        xml_root = self.load_test_xml()
+
+        section = xml_root.find(LIST_VIEW_SECTION_LOCATOR)
+        filter = section.find('jobFilters/%s' % MOST_RECENT_JOBS_FILTER_LOCATOR)
+        self.assertEqual(filter.find('maxToInclude').text, '10')
+        self.assertEqual(filter.find('checkStartTime').text, 'true')

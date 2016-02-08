@@ -32,6 +32,10 @@
                     type: other-views
                     other-view: OTHER_VIEW_NAME
                     include-exclude-type: excludeMatched
+                - job-filter:
+                    type: most-recent-jobs
+                    max-to-include: 10
+                    check-start-time: true
         - section:
             type: view-listing
             name: view listing name

@@ -1,0 +1,4 @@
+<hudson.views.MostRecentJobsFilter plugin="view-job-filters@1.26">
+    <maxToInclude>0</maxToInclude>
+    <checkStartTime>false</checkStartTime>
+</hudson.views.MostRecentJobsFilter>

@@ -134,6 +134,8 @@ def convert_job_filter_yaml_dict_to_xml(yaml_dict):
         return convert_job_regex_filter_to_xml(yaml_dict)
     elif type == 'other-views':
         return convert_other_views_filter_to_xml(yaml_dict)
+    elif type == 'most-recent-jobs':
+        return convert_most_recent_jobs_filter_to_xml(yaml_dict)
     else:
         raise Exception("Invalid job-filter 'type' in yaml definition: %s" % type)
 
@@ -163,6 +165,14 @@ def convert_other_views_filter_to_xml(yaml_dict):
     set_include_exclude_string(filter_xml, yaml_dict)
     if 'other-view' in yaml_dict:
         filter_xml.find('otherViewName').text = yaml_dict['other-view']
+    return filter_xml
+
+def convert_most_recent_jobs_filter_to_xml(yaml_dict):
+    filter_xml = get_xml_from_template('sectioned_view_most_recent_jobs_filter_template.xml')
+    if 'max-to-include' in yaml_dict:
+        filter_xml.find('maxToInclude').text = str(yaml_dict['max-to-include'])
+    if 'check-start-time' in yaml_dict:
+        filter_xml.find('checkStartTime').text = str(bool(yaml_dict.get('check-start-time'))).lower()
     return filter_xml
 
 
